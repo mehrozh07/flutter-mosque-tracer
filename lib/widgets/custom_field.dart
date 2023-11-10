@@ -19,6 +19,7 @@ class CustomTextFiled extends StatelessWidget {
   final TextInputType? textInputType;
   final bool showPrefixWidget;
   final bool readOnly;
+  final bool obscureText;
   final Function()? onTap;
   final Function(String)? onChange;
   final List<TextInputFormatter>? format;
@@ -29,6 +30,7 @@ class CustomTextFiled extends StatelessWidget {
     this.onChange,
     this.textInputAction,
     this.readOnly=false,
+    this.obscureText=false,
     this.onTap,
     this.format,
     this.labelText,
@@ -63,7 +65,12 @@ class CustomTextFiled extends StatelessWidget {
       onChanged: onChange,
       keyboardType: textInputType,
       textInputAction: textInputAction,
-      style: Theme.of(context).textTheme.labelSmall,
+      obscureText: obscureText,
+      style: GoogleFonts.inter(
+        color: Colors.black,
+        fontSize: 14,
+        fontWeight: FontWeight.w500
+      ),
       onTapOutside: (event)=>FocusManager.instance.primaryFocus?.unfocus(),
       decoration: InputDecoration(
         counterText: '',
@@ -84,7 +91,7 @@ class CustomTextFiled extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: Colors.grey.shade100),
+          borderSide: BorderSide(color: Colors.grey.shade400),
         ),
         helperText: helperText,
         prefixIcon: showPrefixWidget == false ? prefixIcon : prefixIconWidget,
@@ -95,12 +102,12 @@ class CustomTextFiled extends StatelessWidget {
         labelText: showLabelText ? null : "$labelText",
         labelStyle: GoogleFonts.inter(
           fontWeight: FontWeight.w500,
-          color: Colors.grey.shade100,
+          color: Colors.grey.shade400,
           fontSize: 14,
         ),
         hintStyle: GoogleFonts.inter(
           fontWeight: FontWeight.w400,
-          color: Colors.grey.shade100,
+          color: Colors.grey.shade400,
           fontSize: MediaQuery.textScaleFactorOf(context)*13,
         ),
       ),

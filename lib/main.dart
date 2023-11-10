@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:mosque_tracer/View/auth-screens/login_view.dart';
+import 'package:mosque_tracer/model-view/auth-notifier.dart';
+import 'package:mosque_tracer/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_)=> AuthNotifier())
+  ],
+  child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -10,12 +18,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Mosque Tracer',
+      debugShowCheckedModeBanner: false,
+      home: LoginView(),
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: kPrimaryColor),
         useMaterial3: true,
       ),
-      // home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
