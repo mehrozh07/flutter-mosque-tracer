@@ -10,6 +10,13 @@ class AuthNotifier extends ChangeNotifier{
     _showPassword = !_showPassword;
     notifyListeners();
   }
+  bool _showConfirmPassword = false;
+  bool get showConfirmPassword => _showConfirmPassword;
+
+  showConfirmPasswordFn(){
+    _showConfirmPassword = !_showConfirmPassword;
+    notifyListeners();
+  }
 
   bool _savePassword = false;
   bool get savePassword => _savePassword;

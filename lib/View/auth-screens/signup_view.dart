@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:mosque_tracer/View/auth-screens/forgot_password.dart';
-import 'package:mosque_tracer/View/auth-screens/signup_view.dart';
 import 'package:mosque_tracer/generated/assets.dart';
 import 'package:mosque_tracer/model-view/auth-notifier.dart';
 import 'package:mosque_tracer/utils/colors.dart';
@@ -10,8 +8,8 @@ import 'package:mosque_tracer/widgets/custom_button.dart';
 import 'package:mosque_tracer/widgets/custom_field.dart';
 import 'package:provider/provider.dart';
 
-class LoginView extends StatelessWidget {
-   LoginView({super.key});
+class SignupView extends StatelessWidget {
+   SignupView({super.key});
 
 
   final emailC = TextEditingController();
@@ -49,13 +47,13 @@ class LoginView extends StatelessWidget {
                 key: _formKey,
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: size.width*0.032,vertical: size.height*0.01),
+                    padding: EdgeInsets.symmetric(horizontal: size.width*0.032,vertical: size.height*0.02),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image.asset(Assets.imagesImageLogin,height: 200),
-                        SizedBox(height: size.height*0.06),
+                        Text('Join Our Community!',style: InterStyle.w600f26Black),
+                        SizedBox(height: size.height*0.2),
                         CustomTextFiled(
                           controller: emailC,
                           textInputType: TextInputType.emailAddress,
@@ -88,38 +86,28 @@ class LoginView extends StatelessWidget {
                               icon: Icon(authNotifier.showPassword? Icons.visibility : Icons.visibility_off),
                           ),
                         ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Checkbox(
-                                  visualDensity: const VisualDensity(horizontal: -4),
-                                    value: authNotifier.savePassword,
-                                    onChanged: authNotifier.setSavePassword,
-                                ),
-                                Text('keep me logged in',style: InterStyle.w600f12Black)
-                              ],
-                            ),
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                visualDensity: const VisualDensity(horizontal: -4,vertical: -4),
-                                padding: EdgeInsets.zero
-                              ),
-                                onPressed: (){
-                                Navigator.push(context, MaterialPageRoute(builder: (_)=> ForgotPasswordView()));
-                                },
-                                child: Text('Forgot Password?',style: InterStyle.w600f16Black),
-                            )
-                          ],
+                        SizedBox(height: size.height*0.014),
+                        CustomTextFiled(
+                          controller: passwordC,
+                          obscureText: authNotifier.showConfirmPassword,
+                          textInputType: TextInputType.visiblePassword,
+                          prefixIcon: Icon(Icons.lock_open,color: Colors.grey.shade400),
+                          // hintText: null,
+                          showLabelText: true,
+                          validator: (v){
+                            if(v.isEmpty || v.toString() == 'null' || v.toString() == ''){
+                              return 'Please enter confirm password';
+                            }
+                          },
+                          hintText: 'Enter confirm password',
+                          suffixIcon: IconButton(
+                              onPressed: authNotifier.showConfirmPasswordFn,
+                              icon: Icon(authNotifier.showConfirmPassword? Icons.visibility : Icons.visibility_off),
+                          ),
                         ),
                         SizedBox(height: size.height*0.05),
                         CustomButton(
-                          title: 'Login',
+                          title: 'Sign Up',
                           onPressed: (){
                             if(_formKey.currentState!.validate()){
 
@@ -130,12 +118,8 @@ class LoginView extends StatelessWidget {
                         Wrap(
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
-                            Text('Don’t have an Account? ',style: InterStyle.w600f16Black),
-                            InkWell(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (_)=> SignupView()));
-                                },
-                                child: Text('Join Now',style: InterStyle.w600f16Primary))
+                            Text('Already have an Account? ',style: InterStyle.w600f16Black),
+                            Text('Login',style: InterStyle.w600f16Primary)
                           ],
                         )
                       ],
