@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:geolocator/geolocator.dart';
 
 class AuthNotifier extends ChangeNotifier{
 
@@ -24,6 +25,19 @@ class AuthNotifier extends ChangeNotifier{
   setSavePassword(v){
     _savePassword = v;
     notifyListeners();
+  }
+
+  Position? _position;
+  Position? get position => _position;
+
+  setPosition(Position position){
+    _position = position;
+    notifyListeners();
+  }
+
+  void getCurrentLocation() async{
+  Position  position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  setPosition(position);
   }
 
 }

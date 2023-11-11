@@ -2,7 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mosque_tracer/model-view/auth-notifier.dart';
 import 'package:mosque_tracer/utils/text_style.dart';
+import 'package:provider/provider.dart';
 
 class NearByMosque extends StatefulWidget {
   const NearByMosque({super.key});
@@ -12,7 +14,8 @@ class NearByMosque extends StatefulWidget {
 }
 
 class _NearByMosqueState extends State<NearByMosque> {
-  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(37.42796133580664, -122.085749655962),
@@ -25,23 +28,26 @@ class _NearByMosqueState extends State<NearByMosque> {
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
 
-
   @override
   void initState() {
     _determinePosition();
+    final authNotifier = Provider.of<AuthNotifier>(context,listen: false);
+    authNotifier.getCurrentLocation();
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+    final authNotifier = Provider.of<AuthNotifier>(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
         body: Stack(
           children: [
             Positioned(
-              top: size.height*0.04,
+              top: size.height * 0.04,
               right: 0,
               left: 0,
               child: Row(
@@ -49,9 +55,9 @@ class _NearByMosqueState extends State<NearByMosque> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const SizedBox.shrink(),
-                  Text('Mosque near you',style: InterStyle.w600f16Black),
-                   Padding(
-                    padding: EdgeInsets.only(right: size.width*0.032),
+                  Text('Mosque near you', style: InterStyle.w600f16Black),
+                  Padding(
+                    padding: EdgeInsets.only(right: size.width * 0.032),
                     child: const Icon(Icons.arrow_forward_outlined),
                   ),
                 ],
@@ -65,7 +71,7 @@ class _NearByMosqueState extends State<NearByMosque> {
                 height: size.height * 0.75,
                 width: double.infinity,
                 alignment: Alignment.topCenter,
-                padding: EdgeInsets.symmetric(horizontal: size.width*0.04),
+                padding: EdgeInsets.symmetric(horizontal: size.width * 0.04),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade50,
                   borderRadius: const BorderRadius.only(
@@ -77,29 +83,39 @@ class _NearByMosqueState extends State<NearByMosque> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Map',style: InterStyle.w600f16Black),
+                    Text('Map', style: InterStyle.w600f16Black),
                     const SizedBox(height: 12),
                     Container(
                       width: double.infinity,
-                      height: size.height*0.3,
+                      height: size.height * 0.3,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20)
-                      ),
+                          borderRadius: BorderRadius.circular(20)),
                       child: Stack(
                         alignment: Alignment.topRight,
                         children: [
+                        authNotifier.position != null?
                         GoogleMap(
-                        mapType: MapType.normal,
-                        compassEnabled: true,
-                        myLocationButtonEnabled: true,
-                        myLocationEnabled: true,
-                        initialCameraPosition: _kGooglePlex,
-                        onMapCreated: (GoogleMapController controller) {
-                          _controller.complete(controller);
-                          _determinePosition();
-                        },
-                      ),
+                            mapType: MapType.normal,
+                            compassEnabled: true,
+                            myLocationButtonEnabled: true,
+                            myLocationEnabled: true,
+                            initialCameraPosition: _kGooglePlex,
+                            onMapCreated: (GoogleMapController controller) {
+                              _controller.complete(controller);
+                              _determinePosition();
+                              controller.animateCamera(
+                                  CameraUpdate.newCameraPosition(
+                                      CameraPosition(target: LatLng(
+                                          authNotifier.position!.latitude,
+                                          authNotifier.position!.longitude,
+                                      ),
+                                          tilt: 59.440717697143555,
+                                          zoom: 19.151926040649414,
+                                          bearing: 192.8334901395799,
+                                      )));
+                            },
+                          ) : const Center(child: CircularProgressIndicator()),
                           // Transform.scale(
                           //   scale: 0.7,
                           //   child: IconButton(
@@ -123,6 +139,7 @@ class _NearByMosqueState extends State<NearByMosque> {
       ),
     );
   }
+
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
@@ -134,7 +151,6 @@ class _NearByMosqueState extends State<NearByMosque> {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-
       return Future.error('Location services are disabled.');
     }
 
