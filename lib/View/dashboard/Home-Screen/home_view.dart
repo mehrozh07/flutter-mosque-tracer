@@ -11,9 +11,6 @@ class HomeView extends StatelessWidget {
     final size = MediaQuery.sizeOf(context);
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-        ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: size.width*0.04,vertical: size.height*0.02),
           child: Column(
@@ -24,20 +21,29 @@ class HomeView extends StatelessWidget {
               PrayerTimeWidget(size: size, prefixText: 'Maghrib', suffixTxt: '05:28 PM'),
               PrayerTimeWidget(size: size, prefixText: 'Isha', suffixTxt: '05:15 AM'),
               PrayerTimeWidget(size: size, prefixText: 'Jumma Mubarak', suffixTxt: '01:30 PM'),
-              
+              SizedBox(height: size.height*0.1),
               Row(
                 children: [
                   Expanded(
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        backgroundColor: kPrimaryColor,
+                        backgroundColor: Colors.grey.shade400,
+                        minimumSize: Size(double.infinity, size.height*0.06),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                           side: BorderSide.none
                         )
                       ),
                         onPressed: (){},
-                        child: Text('Mosque near you',style: InterStyle.w600f16Black),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const SizedBox.shrink(),
+                            Text('Mosque near you',style: InterStyle.w600f16Black),
+                             const Icon(Icons.arrow_forward,color: kPrimaryColor)
+                          ],
+                        ),
                     ),
                   ),
                 ],

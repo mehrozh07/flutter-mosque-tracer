@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mosque_tracer/View/auth-screens/forgot_password.dart';
 import 'package:mosque_tracer/View/auth-screens/signup_view.dart';
-import 'package:mosque_tracer/View/dashboard/home_view.dart';
+import 'package:mosque_tracer/View/dashboard/Home-Screen/home_view.dart';
 import 'package:mosque_tracer/generated/assets.dart';
 import 'package:mosque_tracer/model-view/auth-notifier.dart';
 import 'package:mosque_tracer/utils/colors.dart';
+import 'package:mosque_tracer/utils/main_screen.dart';
 import 'package:mosque_tracer/utils/text_style.dart';
 import 'package:mosque_tracer/widgets/custom_button.dart';
 import 'package:mosque_tracer/widgets/custom_field.dart';
@@ -123,7 +124,7 @@ class LoginView extends StatelessWidget {
                           title: 'Login',
                           onPressed: (){
                             if(_formKey.currentState!.validate()){
-                              Navigator.push(context, MaterialPageRoute(builder: (_)=> HomeView()));
+                              Navigator.push(context, MaterialPageRoute(builder: (_)=> MainScreen()));
                             }
                           },
                         ),
