@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mosque_tracer/View/dashboard/Hadith-view/hadith_view.dart';
 import 'package:mosque_tracer/View/dashboard/Home-Screen/home_view.dart';
 import 'package:mosque_tracer/View/dashboard/zakat_view/zakat_view.dart';
+import 'package:mosque_tracer/generated/assets.dart';
 import 'package:mosque_tracer/utils/colors.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -33,13 +35,13 @@ class _MainScreenState extends State<MainScreen> {
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
-      backgroundColor: Colors.white, // Default is Colors.white.
+      backgroundColor: Colors.grey.shade300, // Default is Colors.white.
       handleAndroidBackButtonPress: true, // Default is true.
       resizeToAvoidBottomInset: true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
       stateManagement: true, // Default is true.
       hideNavigationBarWhenKeyboardShows: true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
-      decoration: NavBarDecoration(
-        borderRadius: BorderRadius.circular(10.0),
+      decoration: const NavBarDecoration(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(10),topRight: Radius.circular(10)),
         colorBehindNavBar: Colors.white,
       ),
       popAllScreensOnTapOfSelectedTab: true,
@@ -53,7 +55,7 @@ class _MainScreenState extends State<MainScreen> {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
-      navBarStyle: NavBarStyle.style2, // Choose the nav bar style with this property.
+      navBarStyle: NavBarStyle.style5, // Choose the nav bar style with this property.
     );
   }
   List<PersistentBottomNavBarItem> _navBarsItems() {
@@ -65,14 +67,15 @@ class _MainScreenState extends State<MainScreen> {
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.settings),
+        icon: ImageIcon(Image.asset(Assets.imagesZakaat).image),
         title: ("Zakat"),
         activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
 
       PersistentBottomNavBarItem(
-        icon: const Icon(CupertinoIcons.time),
+        contentPadding: 0,
+        icon: ImageIcon(Image.asset(Assets.imagesBook).image),
         title: ("Hadith"),
         activeColorPrimary: kPrimaryColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,

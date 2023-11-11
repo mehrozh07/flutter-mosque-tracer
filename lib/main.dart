@@ -3,6 +3,7 @@ import 'package:mosque_tracer/View/auth-screens/login_view.dart';
 import 'package:mosque_tracer/View/splash-view/splash_view.dart';
 import 'package:mosque_tracer/model-view/auth-notifier.dart';
 import 'package:mosque_tracer/utils/colors.dart';
+import 'package:mosque_tracer/utils/main_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Mosque Tracer',
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      home: const MainScreen(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: kPrimaryColor),
         useMaterial3: true,
