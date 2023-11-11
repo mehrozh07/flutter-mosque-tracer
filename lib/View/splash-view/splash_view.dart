@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:mosque_tracer/View/auth-screens/login_view.dart';
 import 'package:mosque_tracer/generated/assets.dart';
@@ -19,7 +18,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
   Timer(const Duration(seconds: 3), () {
-    Navigator.push(context, MaterialPageRoute(builder: (_)=> LoginView()));
+    Navigator.popUntil(context, (route) => route.isFirst);
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> LoginView()));
   });
     super.initState();
   }
