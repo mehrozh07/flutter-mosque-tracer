@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "723914339078",
+    "project_id": "mosque-tracer",
+    "storage_bucket": "mosque-tracer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:723914339078:android:59fd94034bfdefcd51a487",
+        "android_client_info": {
+          "package_name": "com.mosque_tracer.mosque_tracer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh81Effvbf2axSQGO8LSOdsxe8IO1q9pI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

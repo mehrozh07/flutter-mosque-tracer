@@ -16,7 +16,7 @@ class ZakatView extends StatelessWidget {
               right: 0,
               left: 0,
               child: Container(
-                height: size.height * 0.75,
+                height: size.height * 0.8,
                 width: size.width,
                 padding: EdgeInsets.only(
                     left: size.width * 0.04,
@@ -52,6 +52,30 @@ class ZakatView extends StatelessWidget {
                     ),
                     Text('Cash',style: InterStyle.w500f24Black),
                     Divider(color: Colors.grey.shade400,thickness: 2),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Text('Cash in hand & in bank account',
+                                  maxLines: 2,
+                                  style: InterStyle.w500f14Black),
+                              Container(),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Text('Cash deposited for some future purpose,e.g Hajj',
+                                  maxLines: 2,
+                                  style: InterStyle.w500f14Black),
+                              Container(),
+                            ],
+                          ),
+                        ),
+                      ]
+                    )
                   ],
                 ),
               ),

@@ -14,6 +14,7 @@ class SignupView extends StatelessWidget {
 
   final emailC = TextEditingController();
   final passwordC = TextEditingController();
+  final confirmPasswordC = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -88,7 +89,7 @@ class SignupView extends StatelessWidget {
                         ),
                         SizedBox(height: size.height*0.014),
                         CustomTextFiled(
-                          controller: passwordC,
+                          controller: confirmPasswordC,
                           obscureText: authNotifier.showConfirmPassword,
                           textInputType: TextInputType.visiblePassword,
                           prefixIcon: Icon(Icons.lock_open,color: Colors.grey.shade400),
@@ -97,6 +98,9 @@ class SignupView extends StatelessWidget {
                           validator: (v){
                             if(v.isEmpty || v.toString() == 'null' || v.toString() == ''){
                               return 'Please enter confirm password';
+                            }
+                            if(passwordC.text != confirmPasswordC.text){
+                              return 'Confirm password entered different';
                             }
                           },
                           hintText: 'Enter confirm password',
@@ -110,9 +114,13 @@ class SignupView extends StatelessWidget {
                           title: 'Sign Up',
                           onPressed: (){
                             if(_formKey.currentState!.validate()){
-
+                              authNotifier.registerUser(
+                                  emailC.text.toString().trim(),
+                                  passwordC.text.trim().toString(),
+                                  context);
                             }
                           },
+                          loading: authNotifier.registerLoader,
                         ),
                         SizedBox(height: size.height*0.02),
                         Wrap(
