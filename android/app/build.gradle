@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.mosque_tracer.mosque_tracer"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -42,10 +42,11 @@ android {
 
     defaultConfig {
         applicationId "com.mosque_tracer.mosque_tracer"
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 1
+        versionName '1.0'
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -61,4 +62,5 @@ flutter {
 
 dependencies {
 
+ implementation 'androidx.multidex:multidex:2.0.1'
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mosque_tracer/View/dashboard/Home-Screen/nearby_mosque.dart';
 import 'package:mosque_tracer/generated/assets.dart';
 import 'package:mosque_tracer/utils/colors.dart';
 import 'package:mosque_tracer/utils/text_style.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -61,7 +63,14 @@ class HomeView extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50),
                                     side: BorderSide.none)),
-                            onPressed: () {},
+                            onPressed: () {
+                              PersistentNavBarNavigator.pushNewScreen(
+                                context,
+                                screen: const NearByMosque(),
+                                withNavBar: true,
+                                pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                              );
+                            },
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
