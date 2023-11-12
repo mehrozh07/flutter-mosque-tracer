@@ -89,11 +89,28 @@ class _HadithViewState extends State<HadithView> {
                                 borderRadius: BorderRadius.circular(8),
                                 color: Colors.white
                               ),
-                              child: RichText(
-                                  text: TextSpan(
-                                text: '${data?.hadithArabic}',
-                                style: InterStyle.w500f14Black
-                              )),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Text('${data?.book?.bookSlug}'),
+                                  // SizedBox(height: size.height*0.01),
+                                  RichText(
+                                      text: TextSpan(
+                                    text: '${data?.hadithArabic}',
+                                    style: InterStyle.w500f14Black,
+                                  ),
+                                      textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(height: size.height*0.01),
+                                  RichText(
+                                      text: TextSpan(
+                                    text: '${data?.hadithEnglish}',
+                                    style: InterStyle.w500f14Black
+                                  ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         });
