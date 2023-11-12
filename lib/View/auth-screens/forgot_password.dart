@@ -72,9 +72,10 @@ class ForgotPasswordView extends StatelessWidget {
                           title: 'Forgot Password',
                           onPressed: (){
                             if(_formKey.currentState!.validate()){
-
+                              authNotifier.resetPassword(emailC.text.toString().trim(), context);
                             }
                           },
+                          loading: authNotifier.resetLoader,
                         ),
                       ],
                     ),

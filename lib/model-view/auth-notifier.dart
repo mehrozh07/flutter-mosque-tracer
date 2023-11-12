@@ -201,6 +201,60 @@ class AuthNotifier extends ChangeNotifier{
     return loginCredential;
   }
 
+  bool resetLoading = false;
+  bool get resetLoader => resetLoading;
+
+  setResetLoading(bool loading) {
+    resetLoading = loading;
+    notifyListeners();
+  }
+
+  String? _resetEmailError;
+  String? get resetEmailError => _resetEmailError;
+
+  void resetEmailErrorText(error){
+    _resetEmailError = error;
+    notifyListeners();
+  }
+
+
+  Future<void> resetPassword(var email, context) async {
+    try {
+      setResetLoading(true);
+      await FirebaseApi.auth.sendPasswordResetEmail(email: email);
+      setResetLoading(false);
+      Navigator.pop(context);
+      Utils.toastMessage("Check your email for resetting your password");
+      notifyListeners();
+    } on FirebaseException catch (e) {
+      setResetLoading(false);
+      switch(e.code){
+        case "invalid-email":
+          _resetEmailError = "Please enter a valid email address";
+          notifyListeners();
+          break;
+        case "user-not-found":
+          _resetEmailError = "User not found for following email address";
+          notifyListeners();
+          break;
+        case "unknown":
+          _resetEmailError = "Unknown Error Occurred";
+          notifyListeners();
+          break;
+        case "network-request-failed":
+          Utils.toastMessage("Please check your internet connection and try again");
+          notifyListeners();
+          break;
+        default:
+          _resetEmailError = 'An error occurred, please try again later';
+          notifyListeners();
+      }
+      // Utils.topFlushBarMessage("${e.message}", context, AppColors.warningColor);
+    }catch(e){
+      Utils.toastMessage("$e");
+    }
+  }
+
   void signOut() {
     FirebaseApi.auth.signOut();
     notifyListeners();
