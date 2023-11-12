@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mosque_tracer/model-view/hadith_view_model/hadith_bloc.dart';
+import 'package:mosque_tracer/utils/text_style.dart';
 
 class HadithView extends StatefulWidget {
   const HadithView({super.key});
@@ -69,14 +70,30 @@ class _HadithViewState extends State<HadithView> {
                   }
                   if(state is HadithLoaded){
                     return ListView.builder(
-                        itemCount: 2,
+                        itemCount: state.hadithModel.hadiths?.data?.length,
                         itemBuilder: (context, index) {
-                          return Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.symmetric(vertical: size.height *
-                                0.02, horizontal: size.width * 0.03),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
+                          final data = state.hadithModel.hadiths?.data?[index];
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(vertical: size.height * 0.02, horizontal: size.width * 0.03),
+                              decoration: BoxDecoration(
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Color(0x26000000),
+                                      offset: Offset(0, 1),
+                                      blurRadius: 5,
+                                    ),
+                                  ],
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.white
+                              ),
+                              child: RichText(
+                                  text: TextSpan(
+                                text: '${data?.hadithArabic}',
+                                style: InterStyle.w500f14Black
+                              )),
                             ),
                           );
                         });

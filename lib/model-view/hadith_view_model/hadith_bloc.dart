@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mosque_tracer/models/hadith_model.dart';
@@ -20,7 +21,9 @@ class HadithBloc extends Bloc<HadithEvent, HadithState> {
             ),
         );
         if(response.statusCode == 200){
-          Map<String,dynamic> jsonData = jsonEncode(response.body) as Map<String,dynamic>;
+          // log('This is json Data====> ${response.body}');
+          Map<String,dynamic> jsonData = jsonDecode(response.body) as Map<String,dynamic>;
+          log('This is json Data====> $jsonData');
           HadithModel hadithModel = HadithModel.fromJson(jsonData);
           emit(HadithLoaded(hadithModel));
         }else if (response.statusCode != 200){

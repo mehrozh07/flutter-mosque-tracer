@@ -9,15 +9,15 @@ class HadithModel {
     status = json['status'];
     message = json['message'];
     hadiths =
-    json['hadiths'] != null ? Hadiths.fromJson(json['hadiths']) : null;
+    json['hadiths'] != null ? new Hadiths.fromJson(json['hadiths']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = status;
-    data['message'] = message;
-    if (hadiths != null) {
-      data['hadiths'] = hadiths!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    if (this.hadiths != null) {
+      data['hadiths'] = this.hadiths!.toJson();
     }
     return data;
   }
@@ -34,7 +34,7 @@ class Hadiths {
   String? nextPageUrl;
   String? path;
   int? perPage;
-  String? prevPageUrl;
+  Null? prevPageUrl;
   int? to;
   int? total;
 
@@ -58,7 +58,7 @@ class Hadiths {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data!.add(Data.fromJson(v));
+        data!.add(new Data.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -68,7 +68,7 @@ class Hadiths {
     if (json['links'] != null) {
       links = <Links>[];
       json['links'].forEach((v) {
-        links!.add(Links.fromJson(v));
+        links!.add(new Links.fromJson(v));
       });
     }
     nextPageUrl = json['next_page_url'];
@@ -80,24 +80,24 @@ class Hadiths {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['current_page'] = currentPage;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['current_page'] = this.currentPage;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
-    data['first_page_url'] = firstPageUrl;
-    data['from'] = from;
-    data['last_page'] = lastPage;
-    data['last_page_url'] = lastPageUrl;
-    if (links != null) {
-      data['links'] = links!.map((v) => v.toJson()).toList();
+    data['first_page_url'] = this.firstPageUrl;
+    data['from'] = this.from;
+    data['last_page'] = this.lastPage;
+    data['last_page_url'] = this.lastPageUrl;
+    if (this.links != null) {
+      data['links'] = this.links!.map((v) => v.toJson()).toList();
     }
-    data['next_page_url'] = nextPageUrl;
-    data['path'] = path;
-    data['per_page'] = perPage;
-    data['prev_page_url'] = prevPageUrl;
-    data['to'] = to;
-    data['total'] = total;
+    data['next_page_url'] = this.nextPageUrl;
+    data['path'] = this.path;
+    data['per_page'] = this.perPage;
+    data['prev_page_url'] = this.prevPageUrl;
+    data['to'] = this.to;
+    data['total'] = this.total;
     return data;
   }
 }
@@ -153,32 +153,32 @@ class Data {
     bookSlug = json['bookSlug'];
     volume = json['volume'];
     status = json['status'];
-    book = json['book'] != null ? Book.fromJson(json['book']) : null;
+    book = json['book'] != null ? new Book.fromJson(json['book']) : null;
     chapter =
-    json['chapter'] != null ? Chapter.fromJson(json['chapter']) : null;
+    json['chapter'] != null ? new Chapter.fromJson(json['chapter']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['hadithNumber'] = hadithNumber;
-    data['englishNarrator'] = englishNarrator;
-    data['hadithEnglish'] = hadithEnglish;
-    data['hadithUrdu'] = hadithUrdu;
-    data['urduNarrator'] = urduNarrator;
-    data['hadithArabic'] = hadithArabic;
-    data['headingArabic'] = headingArabic;
-    data['headingUrdu'] = headingUrdu;
-    data['headingEnglish'] = headingEnglish;
-    data['chapterId'] = chapterId;
-    data['bookSlug'] = bookSlug;
-    data['volume'] = volume;
-    data['status'] = status;
-    if (book != null) {
-      data['book'] = book!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['hadithNumber'] = this.hadithNumber;
+    data['englishNarrator'] = this.englishNarrator;
+    data['hadithEnglish'] = this.hadithEnglish;
+    data['hadithUrdu'] = this.hadithUrdu;
+    data['urduNarrator'] = this.urduNarrator;
+    data['hadithArabic'] = this.hadithArabic;
+    data['headingArabic'] = this.headingArabic;
+    data['headingUrdu'] = this.headingUrdu;
+    data['headingEnglish'] = this.headingEnglish;
+    data['chapterId'] = this.chapterId;
+    data['bookSlug'] = this.bookSlug;
+    data['volume'] = this.volume;
+    data['status'] = this.status;
+    if (this.book != null) {
+      data['book'] = this.book!.toJson();
     }
-    if (chapter != null) {
-      data['chapter'] = chapter!.toJson();
+    if (this.chapter != null) {
+      data['chapter'] = this.chapter!.toJson();
     }
     return data;
   }
@@ -210,13 +210,13 @@ class Book {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['bookName'] = bookName;
-    data['writerName'] = writerName;
-    data['aboutWriter'] = aboutWriter;
-    data['writerDeath'] = writerDeath;
-    data['bookSlug'] = bookSlug;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['bookName'] = this.bookName;
+    data['writerName'] = this.writerName;
+    data['aboutWriter'] = this.aboutWriter;
+    data['writerDeath'] = this.writerDeath;
+    data['bookSlug'] = this.bookSlug;
     return data;
   }
 }
@@ -247,13 +247,13 @@ class Chapter {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['chapterNumber'] = chapterNumber;
-    data['chapterEnglish'] = chapterEnglish;
-    data['chapterUrdu'] = chapterUrdu;
-    data['chapterArabic'] = chapterArabic;
-    data['bookSlug'] = bookSlug;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['chapterNumber'] = this.chapterNumber;
+    data['chapterEnglish'] = this.chapterEnglish;
+    data['chapterUrdu'] = this.chapterUrdu;
+    data['chapterArabic'] = this.chapterArabic;
+    data['bookSlug'] = this.bookSlug;
     return data;
   }
 }
@@ -272,10 +272,10 @@ class Links {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['url'] = url;
-    data['label'] = label;
-    data['active'] = active;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['url'] = this.url;
+    data['label'] = this.label;
+    data['active'] = this.active;
     return data;
   }
 }
