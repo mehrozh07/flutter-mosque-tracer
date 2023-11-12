@@ -1,9 +1,13 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mosque_tracer/View/dashboard/Home-Screen/nearby_mosque.dart';
 import 'package:mosque_tracer/generated/assets.dart';
 import 'package:mosque_tracer/model-view/prayer-time-bloc/prayer_timing_bloc.dart';
 import 'package:mosque_tracer/utils/colors.dart';
+import 'package:mosque_tracer/utils/error_message.dart';
 import 'package:mosque_tracer/utils/text_style.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
@@ -30,6 +34,8 @@ class _HomeViewState extends State<HomeView> {
     super.dispose();
   }
 
+  String? selectedCity = "Lahore";
+  // List<String> cities = ["Karachi", "Lahore", "Islamabad", "Rawalpindi"];
 
   @override
   Widget build(BuildContext context) {
@@ -89,12 +95,26 @@ class _HomeViewState extends State<HomeView> {
                               subtitle: Text('${state.prayerTimingModel.date?.gregorian?.weekday?.en}'
                                   ' ${state.prayerTimingModel.date?.gregorian?.day} ${state.prayerTimingModel.date?.gregorian?.month?.en} '
                                   '${state.prayerTimingModel.date?.gregorian?.year}'),
-                              trailing: const Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(Icons.location_on,color: kBlackColor),
-                                  Text(''),
-                                ],
+                              trailing:  DropdownButton<String>(
+                                value: selectedCity,
+                                isDense: true,
+                                underline: const SizedBox.shrink(),
+                                icon: const Icon(Icons.edit_location_sharp),
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedCity = newValue!;
+                                  });
+                                  log('Selected city is ===> ${selectedCity}');
+                                  // if (selectedCity != "Other") {
+                                  //   fetchData(selectedCity);
+                                  // }
+                                },
+                                items: Utils.cities.map<DropdownMenuItem<String>>((String city) {
+                                  return DropdownMenuItem<String>(
+                                    value: city,
+                                    child: Text(city),
+                                  );
+                                }).toList(),
                               ),
                             ),
                             PrayerTimeWidget(
@@ -171,6 +191,7 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
+
 }
 
 class PrayerTimeWidget extends StatelessWidget {
