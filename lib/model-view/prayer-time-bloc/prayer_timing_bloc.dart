@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:mosque_tracer/models/prayer-timing-model/prayer_timing_model.dart';
@@ -17,8 +18,9 @@ class PrayerTimingBloc extends Bloc<PrayerTimingEvent, PrayerTimingState> {
           )
         );
         if(response.statusCode == 200){
-          Map<String,dynamic> responseData = jsonDecode(response.body) as Map<String,dynamic>;
-          PrayerTimingModel prayerTimingModel  = PrayerTimingModel.fromJson(responseData);
+          Map<String,dynamic> responseData = json.decode(response.body) as Map<String,dynamic>;
+          log('This is data=====> $responseData');
+          PrayerTimingModel prayerTimingModel  = PrayerTimingModel.fromJson(responseData['data']);
           emit(PrayerTimingLoaded(prayerTimingModel));
         }else if(response.statusCode != 200){
           emit(PrayerTimingError('Error==> ${response.statusCode} ====> ${response.body}'));

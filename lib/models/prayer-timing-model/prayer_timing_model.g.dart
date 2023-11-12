@@ -9,61 +9,56 @@ part of 'prayer_timing_model.dart';
 _$PrayerTimingModelImpl _$$PrayerTimingModelImplFromJson(
         Map<String, dynamic> json) =>
     _$PrayerTimingModelImpl(
-      code: json['code'] as int?,
-      status: json['status'] as String?,
-      data: json['data'] == null
+      timings: json['timings'] == null
           ? null
-          : PrayerTimings.fromJson(json['data'] as Map<String, dynamic>),
+          : Timings.fromJson(json['timings'] as Map<String, dynamic>),
       date: json['date'] == null
           ? null
-          : PrayerDate.fromJson(json['date'] as Map<String, dynamic>),
+          : Date.fromJson(json['date'] as Map<String, dynamic>),
       meta: json['meta'] == null
           ? null
-          : PrayerMeta.fromJson(json['meta'] as Map<String, dynamic>),
+          : Meta.fromJson(json['meta'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$PrayerTimingModelImplToJson(
         _$PrayerTimingModelImpl instance) =>
     <String, dynamic>{
-      'code': instance.code,
-      'status': instance.status,
-      'data': instance.data,
+      'timings': instance.timings,
       'date': instance.date,
       'meta': instance.meta,
     };
 
-_$PrayerTimingsImpl _$$PrayerTimingsImplFromJson(Map<String, dynamic> json) =>
-    _$PrayerTimingsImpl(
-      fajr: json['fajr'] as String?,
+_$TimingsImpl _$$TimingsImplFromJson(Map<String, dynamic> json) =>
+    _$TimingsImpl(
+      fajr: json['Fajr'] as String?,
       sunrise: json['sunrise'] as String?,
-      dhuhr: json['dhuhr'] as String?,
-      asr: json['asr'] as String?,
+      dhuhr: json['Dhuhr'] as String?,
+      asr: json['Asr'] as String?,
       sunset: json['sunset'] as String?,
-      maghrib: json['maghrib'] as String?,
-      isha: json['isha'] as String?,
+      maghrib: json['Maghrib'] as String?,
+      isha: json['Isha'] as String?,
       imsak: json['imsak'] as String?,
       midnight: json['midnight'] as String?,
-      firstthird: json['firstthird'] as String?,
-      lastthird: json['lastthird'] as String?,
+      firstThird: json['Firstthird'] as String?,
+      lastThird: json['Lastthird'] as String?,
     );
 
-Map<String, dynamic> _$$PrayerTimingsImplToJson(_$PrayerTimingsImpl instance) =>
+Map<String, dynamic> _$$TimingsImplToJson(_$TimingsImpl instance) =>
     <String, dynamic>{
-      'fajr': instance.fajr,
+      'Fajr': instance.fajr,
       'sunrise': instance.sunrise,
-      'dhuhr': instance.dhuhr,
-      'asr': instance.asr,
+      'Dhuhr': instance.dhuhr,
+      'Asr': instance.asr,
       'sunset': instance.sunset,
-      'maghrib': instance.maghrib,
-      'isha': instance.isha,
+      'Maghrib': instance.maghrib,
+      'Isha': instance.isha,
       'imsak': instance.imsak,
       'midnight': instance.midnight,
-      'firstthird': instance.firstthird,
-      'lastthird': instance.lastthird,
+      'Firstthird': instance.firstThird,
+      'Lastthird': instance.lastThird,
     };
 
-_$PrayerDateImpl _$$PrayerDateImplFromJson(Map<String, dynamic> json) =>
-    _$PrayerDateImpl(
+_$DateImpl _$$DateImplFromJson(Map<String, dynamic> json) => _$DateImpl(
       readable: json['readable'] as String?,
       timestamp: json['timestamp'] as String?,
       hijri: json['hijri'] == null
@@ -74,7 +69,7 @@ _$PrayerDateImpl _$$PrayerDateImplFromJson(Map<String, dynamic> json) =>
           : GregorianDate.fromJson(json['gregorian'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$PrayerDateImplToJson(_$PrayerDateImpl instance) =>
+Map<String, dynamic> _$$DateImplToJson(_$DateImpl instance) =>
     <String, dynamic>{
       'readable': instance.readable,
       'timestamp': instance.timestamp,
@@ -144,23 +139,22 @@ Map<String, dynamic> _$$GregorianDateImplToJson(_$GregorianDateImpl instance) =>
       'designation': instance.designation,
     };
 
-_$PrayerMetaImpl _$$PrayerMetaImplFromJson(Map<String, dynamic> json) =>
-    _$PrayerMetaImpl(
+_$MetaImpl _$$MetaImplFromJson(Map<String, dynamic> json) => _$MetaImpl(
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
       timezone: json['timezone'] as String?,
       method: json['method'] == null
           ? null
-          : PrayerMethod.fromJson(json['method'] as Map<String, dynamic>),
+          : Method.fromJson(json['method'] as Map<String, dynamic>),
       latitudeAdjustmentMethod: json['latitudeAdjustmentMethod'] as String?,
       midnightMode: json['midnightMode'] as String?,
       school: json['school'] as String?,
       offset: json['offset'] == null
           ? null
-          : PrayerOffset.fromJson(json['offset'] as Map<String, dynamic>),
+          : Offset.fromJson(json['offset'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$PrayerMetaImplToJson(_$PrayerMetaImpl instance) =>
+Map<String, dynamic> _$$MetaImplToJson(_$MetaImpl instance) =>
     <String, dynamic>{
       'latitude': instance.latitude,
       'longitude': instance.longitude,
@@ -172,20 +166,18 @@ Map<String, dynamic> _$$PrayerMetaImplToJson(_$PrayerMetaImpl instance) =>
       'offset': instance.offset,
     };
 
-_$PrayerMethodImpl _$$PrayerMethodImplFromJson(Map<String, dynamic> json) =>
-    _$PrayerMethodImpl(
+_$MethodImpl _$$MethodImplFromJson(Map<String, dynamic> json) => _$MethodImpl(
       id: json['id'] as int?,
       name: json['name'] as String?,
       params: json['params'] == null
           ? null
-          : PrayerMethodParams.fromJson(json['params'] as Map<String, dynamic>),
+          : Params.fromJson(json['params'] as Map<String, dynamic>),
       location: json['location'] == null
           ? null
-          : PrayerMethodLocation.fromJson(
-              json['location'] as Map<String, dynamic>),
+          : Location.fromJson(json['location'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$PrayerMethodImplToJson(_$PrayerMethodImpl instance) =>
+Map<String, dynamic> _$$MethodImplToJson(_$MethodImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -193,36 +185,30 @@ Map<String, dynamic> _$$PrayerMethodImplToJson(_$PrayerMethodImpl instance) =>
       'location': instance.location,
     };
 
-_$PrayerMethodParamsImpl _$$PrayerMethodParamsImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PrayerMethodParamsImpl(
+_$ParamsImpl _$$ParamsImplFromJson(Map<String, dynamic> json) => _$ParamsImpl(
       fajr: json['fajr'] as int?,
       isha: json['isha'] as int?,
     );
 
-Map<String, dynamic> _$$PrayerMethodParamsImplToJson(
-        _$PrayerMethodParamsImpl instance) =>
+Map<String, dynamic> _$$ParamsImplToJson(_$ParamsImpl instance) =>
     <String, dynamic>{
       'fajr': instance.fajr,
       'isha': instance.isha,
     };
 
-_$PrayerMethodMetaLocationImpl _$$PrayerMethodMetaLocationImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PrayerMethodMetaLocationImpl(
+_$LocationImpl _$$LocationImplFromJson(Map<String, dynamic> json) =>
+    _$LocationImpl(
       latitude: (json['latitude'] as num?)?.toDouble(),
       longitude: (json['longitude'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$PrayerMethodMetaLocationImplToJson(
-        _$PrayerMethodMetaLocationImpl instance) =>
+Map<String, dynamic> _$$LocationImplToJson(_$LocationImpl instance) =>
     <String, dynamic>{
       'latitude': instance.latitude,
       'longitude': instance.longitude,
     };
 
-_$PrayerOffsetImpl _$$PrayerOffsetImplFromJson(Map<String, dynamic> json) =>
-    _$PrayerOffsetImpl(
+_$OffsetImpl _$$OffsetImplFromJson(Map<String, dynamic> json) => _$OffsetImpl(
       imsak: json['imsak'] as int?,
       fajr: json['fajr'] as int?,
       sunrise: json['sunrise'] as int?,
@@ -234,7 +220,7 @@ _$PrayerOffsetImpl _$$PrayerOffsetImplFromJson(Map<String, dynamic> json) =>
       midnight: json['midnight'] as int?,
     );
 
-Map<String, dynamic> _$$PrayerOffsetImplToJson(_$PrayerOffsetImpl instance) =>
+Map<String, dynamic> _$$OffsetImplToJson(_$OffsetImpl instance) =>
     <String, dynamic>{
       'imsak': instance.imsak,
       'fajr': instance.fajr,
@@ -245,20 +231,6 @@ Map<String, dynamic> _$$PrayerOffsetImplToJson(_$PrayerOffsetImpl instance) =>
       'sunset': instance.sunset,
       'isha': instance.isha,
       'midnight': instance.midnight,
-    };
-
-_$PrayerMethodLocationImpl _$$PrayerMethodLocationImplFromJson(
-        Map<String, dynamic> json) =>
-    _$PrayerMethodLocationImpl(
-      latitude: (json['latitude'] as num?)?.toDouble(),
-      longitude: (json['longitude'] as num?)?.toDouble(),
-    );
-
-Map<String, dynamic> _$$PrayerMethodLocationImplToJson(
-        _$PrayerMethodLocationImpl instance) =>
-    <String, dynamic>{
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
     };
 
 _$HijriWeekdayImpl _$$HijriWeekdayImplFromJson(Map<String, dynamic> json) =>

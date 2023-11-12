@@ -49,7 +49,7 @@ class _HomeViewState extends State<HomeView> {
               padding: EdgeInsets.only(
                   left: size.width * 0.04,
                   right: size.width * 0.04,
-                  top: size.height * 0.1),
+                  top: size.height * 0.03),
               alignment: Alignment.topCenter,
               decoration: BoxDecoration(
                 color: Colors.grey.shade50,
@@ -75,9 +75,28 @@ class _HomeViewState extends State<HomeView> {
                         return Text(state.error);
                       }
                       if(state is PrayerTimingLoaded){
-                        final data = state.prayerTimingModel.data;
+                        final data = state.prayerTimingModel.timings;
                         return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text('${state.prayerTimingModel.date?.hijri?.day}',style: InterStyle.w700f26Primary),
+                            ListTile(
+                              dense: true,
+                              visualDensity: const VisualDensity(horizontal: -4,vertical: -4),
+                              contentPadding: EdgeInsets.zero,
+                              title: Text('${state.prayerTimingModel.date?.hijri?.month?.en} ${state.prayerTimingModel.date?.hijri?.year}',
+                                  style: InterStyle.w600f16Primary),
+                              subtitle: Text('${state.prayerTimingModel.date?.gregorian?.weekday?.en}'
+                                  ' ${state.prayerTimingModel.date?.gregorian?.day} ${state.prayerTimingModel.date?.gregorian?.month?.en} '
+                                  '${state.prayerTimingModel.date?.gregorian?.year}'),
+                              trailing: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.location_on,color: kBlackColor),
+                                  Text(''),
+                                ],
+                              ),
+                            ),
                             PrayerTimeWidget(
                                 size: size,
                                 prefixText: 'Fajr',
@@ -108,7 +127,7 @@ class _HomeViewState extends State<HomeView> {
                       return const SizedBox.shrink();
                     },
                   ),
-                  SizedBox(height: size.height * 0.1),
+                  SizedBox(height: size.height * 0.04),
                   Row(
                     children: [
                       Expanded(

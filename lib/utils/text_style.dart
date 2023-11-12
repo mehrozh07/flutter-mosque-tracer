@@ -23,6 +23,12 @@ class InterStyle{
     fontSize: 24,
   );
 
+  static TextStyle w700f26Primary = GoogleFonts.inter(
+    color: kPrimaryColor,
+    fontWeight: FontWeight.w700,
+    fontSize: 26,
+  );
+
   static TextStyle w600f16Primary = GoogleFonts.inter(
     color: kPrimaryColor,
     fontWeight: FontWeight.w600,

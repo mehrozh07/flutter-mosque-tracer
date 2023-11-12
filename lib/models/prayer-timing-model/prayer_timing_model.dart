@@ -1,16 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-
 part 'prayer_timing_model.freezed.dart';
 part 'prayer_timing_model.g.dart';
 
 @freezed
 class PrayerTimingModel with _$PrayerTimingModel {
   factory PrayerTimingModel({
-    int? code,
-    String? status,
-    PrayerTimings? data,
-    PrayerDate? date,
-    PrayerMeta? meta,
+    Timings? timings,
+    Date? date,
+    Meta? meta,
   }) = _PrayerTimingModel;
 
   factory PrayerTimingModel.fromJson(Map<String, dynamic> json) =>
@@ -18,36 +15,34 @@ class PrayerTimingModel with _$PrayerTimingModel {
 }
 
 @freezed
-class PrayerTimings with _$PrayerTimings {
-  factory PrayerTimings({
-    String? fajr,
+class Timings with _$Timings {
+  factory Timings({
+   @JsonKey(name: 'Fajr')  String? fajr,
     String? sunrise,
-    String? dhuhr,
-    String? asr,
+    @JsonKey(name: 'Dhuhr') String? dhuhr,
+    @JsonKey(name: 'Asr') String? asr,
     String? sunset,
-    String? maghrib,
-    String? isha,
+    @JsonKey(name: 'Maghrib') String? maghrib,
+    @JsonKey(name: 'Isha') String? isha,
     String? imsak,
     String? midnight,
-    String? firstthird,
-    String? lastthird,
-  }) = _PrayerTimings;
+    @JsonKey(name: 'Firstthird') String? firstThird,
+    @JsonKey(name: 'Lastthird') String? lastThird,
+  }) = _Timings;
 
-  factory PrayerTimings.fromJson(Map<String, dynamic> json) =>
-      _$PrayerTimingsFromJson(json);
+  factory Timings.fromJson(Map<String, dynamic> json) => _$TimingsFromJson(json);
 }
 
 @freezed
-class PrayerDate with _$PrayerDate {
-  factory PrayerDate({
+class Date with _$Date {
+  factory Date({
     String? readable,
     String? timestamp,
     HijriDate? hijri,
     GregorianDate? gregorian,
-  }) = _PrayerDate;
+  }) = _Date;
 
-  factory PrayerDate.fromJson(Map<String, dynamic> json) =>
-      _$PrayerDateFromJson(json);
+  factory Date.fromJson(Map<String, dynamic> json) => _$DateFromJson(json);
 }
 
 @freezed
@@ -63,8 +58,7 @@ class HijriDate with _$HijriDate {
     List<String>? holidays,
   }) = _HijriDate;
 
-  factory HijriDate.fromJson(Map<String, dynamic> json) =>
-      _$HijriDateFromJson(json);
+  factory HijriDate.fromJson(Map<String, dynamic> json) => _$HijriDateFromJson(json);
 }
 
 @freezed
@@ -79,65 +73,60 @@ class GregorianDate with _$GregorianDate {
     GregorianDesignation? designation,
   }) = _GregorianDate;
 
-  factory GregorianDate.fromJson(Map<String, dynamic> json) =>
-      _$GregorianDateFromJson(json);
+  factory GregorianDate.fromJson(Map<String, dynamic> json) => _$GregorianDateFromJson(json);
 }
 
 @freezed
-class PrayerMeta with _$PrayerMeta {
-  factory PrayerMeta({
+class Meta with _$Meta {
+  factory Meta({
     double? latitude,
     double? longitude,
     String? timezone,
-    PrayerMethod? method,
+    Method? method,
     String? latitudeAdjustmentMethod,
     String? midnightMode,
     String? school,
-    PrayerOffset? offset,
-  }) = _PrayerMeta;
+    Offset? offset,
+  }) = _Meta;
 
-  factory PrayerMeta.fromJson(Map<String, dynamic> json) =>
-      _$PrayerMetaFromJson(json);
+  factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
 }
 
 @freezed
-class PrayerMethod with _$PrayerMethod {
-  factory PrayerMethod({
+class Method with _$Method {
+  factory Method({
     int? id,
     String? name,
-    PrayerMethodParams? params,
-    PrayerMethodLocation? location,
-  }) = _PrayerMethod;
+    Params? params,
+    Location? location,
+  }) = _Method;
 
-  factory PrayerMethod.fromJson(Map<String, dynamic> json) =>
-      _$PrayerMethodFromJson(json);
+  factory Method.fromJson(Map<String, dynamic> json) => _$MethodFromJson(json);
 }
 
 @freezed
-class PrayerMethodParams with _$PrayerMethodParams {
-  factory PrayerMethodParams({
+class Params with _$Params {
+  factory Params({
     int? fajr,
     int? isha,
-  }) = _PrayerMethodParams;
+  }) = _Params;
 
-  factory PrayerMethodParams.fromJson(Map<String, dynamic> json) =>
-      _$PrayerMethodParamsFromJson(json);
+  factory Params.fromJson(Map<String, dynamic> json) => _$ParamsFromJson(json);
 }
 
 @freezed
-class PrayerMethodMetaLocation with _$PrayerMethodMetaLocation {
-  factory PrayerMethodMetaLocation({
+class Location with _$Location {
+  factory Location({
     double? latitude,
     double? longitude,
-  }) = _PrayerMethodMetaLocation;
+  }) = _Location;
 
-  factory PrayerMethodMetaLocation.fromJson(Map<String, dynamic> json) =>
-      _$PrayerMethodMetaLocationFromJson(json);
+  factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 }
 
 @freezed
-class PrayerOffset with _$PrayerOffset {
-  factory PrayerOffset({
+class Offset with _$Offset {
+  factory Offset({
     int? imsak,
     int? fajr,
     int? sunrise,
@@ -147,21 +136,9 @@ class PrayerOffset with _$PrayerOffset {
     int? sunset,
     int? isha,
     int? midnight,
-  }) = _PrayerOffset;
+  }) = _Offset;
 
-  factory PrayerOffset.fromJson(Map<String, dynamic> json) =>
-      _$PrayerOffsetFromJson(json);
-}
-
-@freezed
-class PrayerMethodLocation with _$PrayerMethodLocation {
-  factory PrayerMethodLocation({
-    double? latitude,
-    double? longitude,
-  }) = _PrayerMethodLocation;
-
-  factory PrayerMethodLocation.fromJson(Map<String, dynamic> json) =>
-      _$PrayerMethodLocationFromJson(json);
+  factory Offset.fromJson(Map<String, dynamic> json) => _$OffsetFromJson(json);
 }
 
 @freezed
@@ -171,8 +148,7 @@ class HijriWeekday with _$HijriWeekday {
     String? ar,
   }) = _HijriWeekday;
 
-  factory HijriWeekday.fromJson(Map<String, dynamic> json) =>
-      _$HijriWeekdayFromJson(json);
+  factory HijriWeekday.fromJson(Map<String, dynamic> json) => _$HijriWeekdayFromJson(json);
 }
 
 @freezed
@@ -183,8 +159,7 @@ class HijriMonth with _$HijriMonth {
     String? ar,
   }) = _HijriMonth;
 
-  factory HijriMonth.fromJson(Map<String, dynamic> json) =>
-      _$HijriMonthFromJson(json);
+  factory HijriMonth.fromJson(Map<String, dynamic> json) => _$HijriMonthFromJson(json);
 }
 
 @freezed
@@ -194,8 +169,7 @@ class HijriDesignation with _$HijriDesignation {
     String? expanded,
   }) = _HijriDesignation;
 
-  factory HijriDesignation.fromJson(Map<String, dynamic> json) =>
-      _$HijriDesignationFromJson(json);
+  factory HijriDesignation.fromJson(Map<String, dynamic> json) => _$HijriDesignationFromJson(json);
 }
 
 @freezed
@@ -204,8 +178,7 @@ class GregorianWeekday with _$GregorianWeekday {
     String? en,
   }) = _GregorianWeekday;
 
-  factory GregorianWeekday.fromJson(Map<String, dynamic> json) =>
-      _$GregorianWeekdayFromJson(json);
+  factory GregorianWeekday.fromJson(Map<String, dynamic> json) => _$GregorianWeekdayFromJson(json);
 }
 
 @freezed
@@ -215,8 +188,7 @@ class GregorianMonth with _$GregorianMonth {
     String? en,
   }) = _GregorianMonth;
 
-  factory GregorianMonth.fromJson(Map<String, dynamic> json) =>
-      _$GregorianMonthFromJson(json);
+  factory GregorianMonth.fromJson(Map<String, dynamic> json) => _$GregorianMonthFromJson(json);
 }
 
 @freezed
@@ -226,6 +198,5 @@ class GregorianDesignation with _$GregorianDesignation {
     String? expanded,
   }) = _GregorianDesignation;
 
-  factory GregorianDesignation.fromJson(Map<String, dynamic> json) =>
-      _$GregorianDesignationFromJson(json);
+  factory GregorianDesignation.fromJson(Map<String, dynamic> json) => _$GregorianDesignationFromJson(json);
 }
