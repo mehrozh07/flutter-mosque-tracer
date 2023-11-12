@@ -95,27 +95,34 @@ class _HomeViewState extends State<HomeView> {
                               subtitle: Text('${state.prayerTimingModel.date?.gregorian?.weekday?.en}'
                                   ' ${state.prayerTimingModel.date?.gregorian?.day} ${state.prayerTimingModel.date?.gregorian?.month?.en} '
                                   '${state.prayerTimingModel.date?.gregorian?.year}'),
-                              trailing:  DropdownButton<String>(
-                                value: selectedCity,
-                                isDense: true,
-                                underline: const SizedBox.shrink(),
-                                icon: const Icon(Icons.edit_location_sharp),
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    selectedCity = newValue!;
-                                  });
-                                  log('Selected city is ===> ${selectedCity}');
-                                  // if (selectedCity != "Other") {
-                                  //   fetchData(selectedCity);
-                                  // }
-                                },
-                                items: Utils.cities.map<DropdownMenuItem<String>>((String city) {
-                                  return DropdownMenuItem<String>(
-                                    value: city,
-                                    child: Text(city),
-                                  );
-                                }).toList(),
-                              ),
+                              trailing:  Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('$selectedCity',style: InterStyle.w600f16Black),
+                                  PopupMenuButton<String>(
+                                    initialValue: selectedCity,
+                                    padding: EdgeInsets.zero,
+                                    icon: const Icon(Icons.edit_location_sharp),
+                                    onSelected: (String newValue) {
+                                      setState(() {
+                                        selectedCity = newValue;
+                                      });
+                                      debugPrint('Selected city is ===> $selectedCity');
+                                      prayerTimingBloc.add(PrayerTimingDone('Pakistan', '$selectedCity'));
+                                    },
+                                    itemBuilder: (context) {
+                                      return Utils.cities.map((String city) {
+                                        return PopupMenuItem<String>(
+                                          value: city,
+                                          child: Text(city,style: InterStyle.w600f16Black),
+                                        );
+                                      }).toList().cast();
+                                    },
+                                  ),
+                                ],
+                              )
                             ),
                             PrayerTimeWidget(
                                 size: size,

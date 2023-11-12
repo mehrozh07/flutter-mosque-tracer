@@ -19,7 +19,7 @@ class PrayerTimingBloc extends Bloc<PrayerTimingEvent, PrayerTimingState> {
         );
         if(response.statusCode == 200){
           Map<String,dynamic> responseData = json.decode(response.body) as Map<String,dynamic>;
-          log('This is data=====> $responseData');
+          // log('This is data=====> $responseData');
           PrayerTimingModel prayerTimingModel  = PrayerTimingModel.fromJson(responseData['data']);
           emit(PrayerTimingLoaded(prayerTimingModel));
         }else if(response.statusCode != 200){
