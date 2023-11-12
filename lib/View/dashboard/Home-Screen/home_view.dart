@@ -20,7 +20,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   void initState() {
-    prayerTimingBloc.add(PrayerTimingDone('country', 'city'));
+    prayerTimingBloc.add(PrayerTimingDone('Pakistan', 'Lahore'));
     super.initState();
   }
 
@@ -75,32 +75,33 @@ class _HomeViewState extends State<HomeView> {
                         return Text(state.error);
                       }
                       if(state is PrayerTimingLoaded){
+                        final data = state.prayerTimingModel.data;
                         return Column(
                           children: [
                             PrayerTimeWidget(
                                 size: size,
                                 prefixText: 'Fajr',
-                                suffixTxt: '05:15 AM'),
+                                suffixTxt: '${data?.fajr} AM'),
                             PrayerTimeWidget(
                                 size: size,
                                 prefixText: 'Dhuhr',
-                                suffixTxt: '12:03 PM'),
+                                suffixTxt: '${data?.dhuhr} PM'),
                             PrayerTimeWidget(
                                 size: size,
                                 prefixText: 'Asr',
-                                suffixTxt: '03:05 PM'),
+                                suffixTxt: '${data?.asr} PM'),
                             PrayerTimeWidget(
                                 size: size,
                                 prefixText: 'Maghrib',
-                                suffixTxt: '05:28 PM'),
+                                suffixTxt: '${data?.maghrib} PM'),
                             PrayerTimeWidget(
                                 size: size,
                                 prefixText: 'Isha',
-                                suffixTxt: '05:15 AM'),
-                            PrayerTimeWidget(
-                                size: size,
-                                prefixText: 'Jumma Mubarak',
-                                suffixTxt: '01:30 PM'),
+                                suffixTxt: '${data?.isha} AM'),
+                            // PrayerTimeWidget(
+                            //     size: size,
+                            //     prefixText: 'Jumma Mubarak',
+                            //     suffixTxt: '${data.j} PM'),
                           ],
                         );
                       }
