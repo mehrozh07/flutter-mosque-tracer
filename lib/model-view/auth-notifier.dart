@@ -171,32 +171,26 @@ class AuthNotifier extends ChangeNotifier{
       setLoginLoading(false);
       switch(e.code){
         case "invalid-email":
-          _emailError = "Please enter a valid email";
-          notifyListeners();
+          Utils.toastMessage("Please enter a valid email");
           break;
         case 'user-not-found':
-          _emailError = 'No user found with this email address';
-          notifyListeners();
+          Utils.toastMessage("No user found with this email address");
           break;
         case 'wrong-password':
-          _passwordError = 'Please enter a valid password';
-          notifyListeners();
+          Utils.toastMessage("Please enter a valid password");
           break;
         case 'weak-password':
-          _passwordError = 'The password provided is too weak';
-          notifyListeners();
+          Utils.toastMessage("The password provided is too weak");
           break;
         case "network-request-failed":
-          Utils.toastMessage('Please check your internet connection');
-          notifyListeners();
+          Utils.toastMessage("Please check your internet connection");
           break;
         default:
-          _emailError = 'An error occurred, please try again later';
-          notifyListeners();
+          Utils.toastMessage("An error occurred, please try again later");
       }
     } catch (e) {
       setLoginLoading(false);
-      Utils.toastMessage('${e.toString()}');
+      Utils.toastMessage(e.toString());
     }
     return loginCredential;
   }
