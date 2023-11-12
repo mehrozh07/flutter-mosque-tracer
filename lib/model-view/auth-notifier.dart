@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mosque_tracer/models/user_model.dart';
 import 'package:mosque_tracer/utils/error_message.dart';
 import 'package:mosque_tracer/utils/firebase_api.dart';
+import 'package:mosque_tracer/utils/main_screen.dart';
 
 class AuthNotifier extends ChangeNotifier{
 
@@ -122,6 +124,81 @@ class AuthNotifier extends ChangeNotifier{
       }
     }
     return userCredential;
+  }
+
+  bool loginLoading = false;
+  bool get loginLoader => loginLoading;
+
+  setLoginLoading(bool loading) {
+    loginLoading = loading;
+    notifyListeners();
+  }
+
+  String? _passwordError;
+  String? get passwordError => _passwordError;
+
+  void passwordErrorTex(error){
+    _passwordError = error;
+    notifyListeners();
+  }
+
+  String? _emailError;
+  String? get emailError => _emailError;
+
+  void emailErrorText(error){
+    _emailError = error;
+    notifyListeners();
+  }
+  UserCredential? loginCredential;
+
+  Future<UserCredential?> signIn(var email, var password, context) async {
+    try {
+      setLoginLoading(true);
+      loginCredential = await FirebaseApi.auth.signInWithEmailAndPassword(email: email, password: password)
+          .then((value) {
+        setLoginLoading(false);
+        if (value.user!.emailVerified) {
+          Navigator.popUntil(context, (route) => route.isFirst);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> const MainScreen( )));
+        } else {
+          signOut();
+          _emailError = "Please verify your email first";
+          notifyListeners();
+        }
+      });
+      return loginCredential;
+    } on FirebaseAuthException catch (e) {
+      setLoginLoading(false);
+      switch(e.code){
+        case "invalid-email":
+          _emailError = "Please enter a valid email";
+          notifyListeners();
+          break;
+        case 'user-not-found':
+          _emailError = 'No user found with this email address';
+          notifyListeners();
+          break;
+        case 'wrong-password':
+          _passwordError = 'Please enter a valid password';
+          notifyListeners();
+          break;
+        case 'weak-password':
+          _passwordError = 'The password provided is too weak';
+          notifyListeners();
+          break;
+        case "network-request-failed":
+          Utils.toastMessage('Please check your internet connection');
+          notifyListeners();
+          break;
+        default:
+          _emailError = 'An error occurred, please try again later';
+          notifyListeners();
+      }
+    } catch (e) {
+      setLoginLoading(false);
+      Utils.toastMessage('${e.toString()}');
+    }
+    return loginCredential;
   }
 
   void signOut() {

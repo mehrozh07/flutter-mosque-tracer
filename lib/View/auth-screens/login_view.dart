@@ -124,9 +124,12 @@ class LoginView extends StatelessWidget {
                           title: 'Login',
                           onPressed: (){
                             if(_formKey.currentState!.validate()){
-                              Navigator.push(context, MaterialPageRoute(builder: (_)=> MainScreen()));
+                              authNotifier.signIn(emailC.text.toString().trim(),
+                                  passwordC.text.trim().toString(),
+                                  context);
                             }
                           },
+                          loading: authNotifier.loginLoader,
                         ),
                         SizedBox(height: size.height*0.02),
                         Wrap(
