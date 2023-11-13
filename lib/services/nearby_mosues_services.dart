@@ -8,7 +8,6 @@ class ApiService {
     const apiKey = "AIzaSyBh81Effvbf2axSQGO8LSOdsxe8IO1q9pI";
     const radius = 1000;
     const sensor = true;
-
     final response = await http.get(
         Uri.parse('$baseUrl?location=$lat,$lng&radius=$radius&sensor=$sensor&types=mosque&key=$apiKey')
     );
