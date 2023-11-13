@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mosque_tracer/model-view/auth-notifier.dart';
+import 'package:mosque_tracer/services/nearby_mosues_services.dart';
 import 'package:mosque_tracer/utils/text_style.dart';
 import 'package:provider/provider.dart';
 
@@ -28,11 +30,23 @@ class _NearByMosqueState extends State<NearByMosque> {
       tilt: 59.440717697143555,
       zoom: 19.151926040649414);
 
+  List<Place> _places = [];
+
   @override
   void initState() {
     _determinePosition();
     final authNotifier = Provider.of<AuthNotifier>(context,listen: false);
+    authNotifier.setPickupBitMap(context);
     authNotifier.getCurrentLocation();
+    if(authNotifier.position != null){
+      ApiService.fetchNearbyMosques(authNotifier.position!.latitude, authNotifier.position!.longitude)
+          .then((places) {
+        setState(() {
+          _places = places;
+          log('These are markers====> ${_places}');
+        });
+      });
+    }
     super.initState();
   }
 
@@ -115,18 +129,15 @@ class _NearByMosqueState extends State<NearByMosque> {
                                           bearing: 192.8334901395799,
                                       )));
                             },
+                          markers: _places
+                              .map((place) => Marker(
+                            markerId: MarkerId(place.name),
+                            position: LatLng(place.lat, place.lng),
+                            infoWindow: InfoWindow(title: place.name),
+                            icon: authNotifier.mosque
+                          ))
+                              .toSet(),
                           ) : const Center(child: CircularProgressIndicator()),
-                          // Transform.scale(
-                          //   scale: 0.7,
-                          //   child: IconButton(
-                          //     style: IconButton.styleFrom(
-                          //       backgroundColor: Theme.of(context).primaryColor,
-                          //       shape: const CircleBorder(),
-                          //     ),
-                          //       onPressed: _determinePosition,
-                          //       icon: const Icon(Icons.location_searching,color: Colors.white),
-                          //   ),
-                          // )
                         ],
                       ),
                     )

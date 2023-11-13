@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:mosque_tracer/View/dashboard/zakat_view/zakat_view_2.dart';
 import 'package:mosque_tracer/utils/text_style.dart';
+import 'package:mosque_tracer/widgets/custom_button.dart';
+import 'package:mosque_tracer/widgets/custom_field.dart';
 
 class ZakatView extends StatelessWidget {
-  const ZakatView({super.key});
+   ZakatView({super.key});
+
+  final cashInHand = TextEditingController();
+  final cashDeposited = TextEditingController();
+  final loanC = TextEditingController();
+  final investmentOthersC = TextEditingController();
+  final goldC = TextEditingController();
+  final silverC = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +46,7 @@ class ZakatView extends StatelessWidget {
                 padding: EdgeInsets.only(
                     left: size.width * 0.04,
                     right: size.width * 0.04,
-                    top: size.height * 0.1),
+                    top: size.height * 0.02),
                 alignment: Alignment.topCenter,
                 decoration: BoxDecoration(
                   color: Colors.grey.shade50,
@@ -65,6 +75,7 @@ class ZakatView extends StatelessWidget {
                       onChanged: (v){},
                       title: Text('Value of silver(approximately Rs.114,713)',style: InterStyle.w500f14Black),
                     ),
+                    SizedBox(height: size.height*0.005),
                     Text('Cash',style: InterStyle.w500f24Black),
                     Divider(color: Colors.grey.shade400,thickness: 2),
                     Row(
@@ -75,22 +86,167 @@ class ZakatView extends StatelessWidget {
                               Text('Cash in hand & in bank account',
                                   maxLines: 2,
                                   style: InterStyle.w500f14Black),
-                              Container(),
+                              SizedBox(height: size.height*0.02),
+                              CustomTextFiled(
+                                controller: cashInHand,
+                                textInputType: TextInputType.emailAddress,
+                                textInputAction: TextInputAction.next,
+                                prefixIcon: Icon(Icons.attach_money,color: Colors.grey.shade400),
+                                showLabelText: true,
+                                validator: (v){
+                                  if(v.isEmpty || v.toString() == 'null' || v.toString() == ''){
+                                    return 'enter cash in hand';
+                                  }
+                                },
+                                hintText: 'Enter cash in hand',
+                              ),
                             ],
                           ),
                         ),
+                        SizedBox(width: size.width*0.04),
                         Expanded(
                           child: Column(
                             children: [
                               Text('Cash deposited for some future purpose,e.g Hajj',
                                   maxLines: 2,
                                   style: InterStyle.w500f14Black),
-                              Container(),
+                              SizedBox(height: size.height*0.02),
+                              CustomTextFiled(
+                                controller: cashDeposited,
+                                textInputType: TextInputType.emailAddress,
+                                textInputAction: TextInputAction.next,
+                                prefixIcon: Icon(Icons.attach_money,color: Colors.grey.shade400),
+                                showLabelText: true,
+                                validator: (v){
+                                  if(v.isEmpty || v.toString() == 'null' || v.toString() == ''){
+                                    return 'Please enter deposited cash';
+                                  }
+                                },
+                                hintText: 'Enter deposited cash',
+                              ),
                             ],
                           ),
                         ),
                       ]
-                    )
+                    ),
+                    SizedBox(height: size.height*0.02),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text('Cash given out in loans of total',
+                                    maxLines: 2,
+                                    style: InterStyle.w500f14Black),
+                                SizedBox(height: size.height*0.02),
+                                CustomTextFiled(
+                                  controller: loanC,
+                                  textInputType: TextInputType.emailAddress,
+                                  textInputAction: TextInputAction.next,
+                                  prefixIcon: Icon(Icons.attach_money,color: Colors.grey.shade400),
+                                  showLabelText: true,
+                                  validator: (v){
+                                    if(v.isEmpty || v.toString() == 'null' || v.toString() == ''){
+                                      return 'enter cash given out loan';
+                                    }
+                                  },
+                                  hintText: 'Enter cash given out loan',
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: size.width*0.04),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text('Investment,shares,saving certificates,pensions funded by money in one’s possession',
+                                    maxLines: 2,
+                                    style: InterStyle.w500f14Black),
+                                SizedBox(height: size.height*0.02),
+                                CustomTextFiled(
+                                  controller: investmentOthersC,
+                                  textInputType: TextInputType.text,
+                                  textInputAction: TextInputAction.next,
+                                  prefixIcon: Icon(Icons.attach_money,color: Colors.grey.shade400),
+                                  showLabelText: true,
+                                  validator: (v){
+                                    if(v.isEmpty || v.toString() == 'null' || v.toString() == ''){
+                                      return 'Enter investment and others';
+                                    }
+                                  },
+                                  hintText: 'Enter investments & others',
+                                ),
+                              ],
+                            ),
+                          ),
+                        ]
+                    ),
+                    SizedBox(height: size.height*0.02),
+                    Text('Gold and silver',style: InterStyle.w500f24Black),
+                    Divider(color: Colors.grey.shade400,thickness: 2),
+                    Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text('Valve of gold that you posses',
+                                    maxLines: 2,
+                                    style: InterStyle.w500f14Black),
+                                SizedBox(height: size.height*0.02),
+                                CustomTextFiled(
+                                  controller: goldC,
+                                  textInputType: TextInputType.emailAddress,
+                                  textInputAction: TextInputAction.next,
+                                  prefixIcon: Icon(Icons.attach_money, color: Colors.grey.shade400),
+                                  showLabelText: true,
+                                  validator: (v){
+                                    if(v.isEmpty || v.toString() == 'null' || v.toString() == ''){
+                                      return 'Enter gold';
+                                    }
+                                  },
+                                  hintText: 'Enter gold',
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: size.width*0.04),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text('Valve of silver that you posses',
+                                    maxLines: 2,
+                                    style: InterStyle.w500f14Black),
+                                SizedBox(height: size.height*0.02),
+                                CustomTextFiled(
+                                  controller: silverC,
+                                  textInputType: TextInputType.text,
+                                  textInputAction: TextInputAction.next,
+                                  prefixIcon: Icon(Icons.attach_money,color: Colors.grey.shade400),
+                                  showLabelText: true,
+                                  validator: (v){
+                                    if(v.isEmpty || v.toString() == 'null' || v.toString() == ''){
+                                      return 'Enter silver';
+                                    }
+                                  },
+                                  hintText: 'Enter silver',
+                                ),
+                              ],
+                            ),
+                          ),
+                        ]
+                    ),
+                    SizedBox(height: size.height*0.025),
+                    CustomButton(
+                      bgColor: Theme.of(context).primaryColor,
+                      title: 'Next',
+                      onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (_)=> ZakatView2()));
+                      },
+                    ),
                   ],
                 ),
               ),

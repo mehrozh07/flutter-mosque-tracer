@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mosque_tracer/View/auth-screens/login_view.dart';
@@ -28,6 +25,8 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     prayerTimingBloc.add(PrayerTimingDone('Pakistan', 'Lahore'));
+    final authNotifier = Provider.of<AuthNotifier>(context,listen: false);
+    authNotifier.setPickupBitMap(context);
     super.initState();
   }
 
