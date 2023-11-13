@@ -3,13 +3,16 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mosque_tracer/View/auth-screens/login_view.dart';
 import 'package:mosque_tracer/View/dashboard/Home-Screen/nearby_mosque.dart';
 import 'package:mosque_tracer/generated/assets.dart';
+import 'package:mosque_tracer/model-view/auth-notifier.dart';
 import 'package:mosque_tracer/model-view/prayer-time-bloc/prayer_timing_bloc.dart';
 import 'package:mosque_tracer/utils/colors.dart';
 import 'package:mosque_tracer/utils/error_message.dart';
 import 'package:mosque_tracer/utils/text_style.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -40,11 +43,35 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
+    final authNotifier = Provider.of<AuthNotifier>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
+          Positioned(
+            top: size.height * 0.07,
+            right: 0,
+            left: 0,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: size.width * 0.04,),
+                  child: Text('Mosque Tracer', style: InterStyle.w600f16White),
+                ),
+                IconButton(
+                    onPressed: () async{
+                     await authNotifier.signOut().then((value){
+                       Navigator.popUntil(context, (route) => route.isFirst);
+                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> LoginView()));
+                     });
+                    },
+                    icon: const Icon(Icons.logout,color: Colors.white)),
+              ],
+            ),
+          ),
           Positioned(
             bottom: 0,
             right: 0,

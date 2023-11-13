@@ -12,6 +12,21 @@ class ZakatView extends StatelessWidget {
       body: Stack(
         children: [
           Positioned(
+            top: size.height * 0.1,
+            right: 0,
+            left: 0,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: size.width * 0.04,),
+                  child: Text('Zakaat', style: InterStyle.w600f16White),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
               bottom: 0,
               right: 0,
               left: 0,

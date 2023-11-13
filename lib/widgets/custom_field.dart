@@ -11,6 +11,7 @@ class CustomTextFiled extends StatelessWidget {
   final FormFieldValidator<dynamic>? validator;
   final TextEditingController? controller;
   final Color? enableBorderColor;
+  final String? errorText;
   final bool showLabelText;
   final int? maxLines,maxLength;
   final Color? fillColor;
@@ -49,7 +50,7 @@ class CustomTextFiled extends StatelessWidget {
     this.prefixIcon,
     this.controller,
     this.suffixIcon,
-    this.enableBorderColor,
+    this.enableBorderColor, this.errorText,
   }) : super(key: key);
 
   @override
@@ -98,6 +99,7 @@ class CustomTextFiled extends StatelessWidget {
         suffixIcon: suffixIcon,
         prefixIconColor: Colors.black,
         hintText: "$hintText",
+        errorText: errorText,
         errorStyle: InterStyle.fieldErrStyle,
         labelText: showLabelText ? null : "$labelText",
         labelStyle: GoogleFonts.inter(

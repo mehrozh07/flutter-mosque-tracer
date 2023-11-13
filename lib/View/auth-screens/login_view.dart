@@ -60,6 +60,8 @@ class LoginView extends StatelessWidget {
                         SizedBox(height: size.height*0.06),
                         CustomTextFiled(
                           controller: emailC,
+                          errorText: authNotifier.emailError,
+                          onChange: (v)=>authNotifier.emailErrorText(null),
                           textInputType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
                           prefixIcon: Icon(Icons.email_outlined,color: Colors.grey.shade400),
@@ -77,7 +79,8 @@ class LoginView extends StatelessWidget {
                           obscureText: authNotifier.showPassword,
                           textInputType: TextInputType.visiblePassword,
                           prefixIcon: Icon(Icons.lock_open,color: Colors.grey.shade400),
-                          // hintText: null,
+                          errorText: authNotifier.passwordError,
+                          onChange: (v)=>authNotifier.passwordErrorTex(null),
                           showLabelText: true,
                           validator: (v){
                             if(v.isEmpty || v.toString() == 'null' || v.toString() == ''){

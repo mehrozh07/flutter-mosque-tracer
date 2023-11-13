@@ -10,6 +10,11 @@ class InterStyle{
     fontWeight: FontWeight.w600,
     fontSize: 16,
   );
+  static TextStyle w600f16White = GoogleFonts.inter(
+    color: Colors.white,
+    fontWeight: FontWeight.w600,
+    fontSize: 16,
+  );
 
   static TextStyle w500f14Black = GoogleFonts.inter(
     color: kBlackColor,
@@ -33,6 +38,12 @@ class InterStyle{
     color: kPrimaryColor,
     fontWeight: FontWeight.w600,
     fontSize: 16,
+  );
+
+  static TextStyle w600f12Primary = GoogleFonts.inter(
+    color: kPrimaryColor,
+    fontWeight: FontWeight.w600,
+    fontSize: 12,
   );
 
   static TextStyle w900f26White = GoogleFonts.inter(

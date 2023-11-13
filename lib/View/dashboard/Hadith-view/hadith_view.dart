@@ -36,6 +36,21 @@ class _HadithViewState extends State<HadithView> {
       body: Stack(
         children: [
           Positioned(
+            top: size.height * 0.1,
+            right: 0,
+            left: 0,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: size.width * 0.04,),
+                  child: Text('Hadith', style: InterStyle.w600f16White),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
             bottom: 0,
             right: 0,
             left: 0,
@@ -45,7 +60,7 @@ class _HadithViewState extends State<HadithView> {
               padding: EdgeInsets.only(
                   left: size.width * 0.04,
                   right: size.width * 0.04,
-                  top: size.height * 0.1),
+                  top: size.height * 0.01),
               alignment: Alignment.topCenter,
               decoration: BoxDecoration(
                 color: Colors.grey.shade50,
@@ -92,8 +107,6 @@ class _HadithViewState extends State<HadithView> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Text('${data?.book?.bookSlug}'),
-                                  // SizedBox(height: size.height*0.01),
                                   RichText(
                                       text: TextSpan(
                                     text: '${data?.hadithArabic}',
@@ -108,6 +121,13 @@ class _HadithViewState extends State<HadithView> {
                                     style: InterStyle.w500f14Black
                                   ),
                                     textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(height: size.height*0.02),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Text('${data?.chapter?.bookSlug}',
+                                        textAlign: TextAlign.end,
+                                        style: InterStyle.w600f12Primary),
                                   ),
                                 ],
                               ),

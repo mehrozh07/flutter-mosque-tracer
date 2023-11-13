@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:mosque_tracer/View/auth-screens/login_view.dart';
 import 'package:mosque_tracer/models/user_model.dart';
 import 'package:mosque_tracer/utils/error_message.dart';
 import 'package:mosque_tracer/utils/firebase_api.dart';
@@ -76,6 +79,7 @@ class AuthNotifier extends ChangeNotifier{
       UserCredential? userCredential;
       setRegisterLoading(true);
       userCredential = await FirebaseApi.auth.createUserWithEmailAndPassword(email: email, password: password);
+      Navigator.push(context, MaterialPageRoute(builder: (_)=> LoginView()));
       await FirebaseApi.users.doc(userCredential.user?.uid).set(UserModel(
         userId: userCredential.user?.uid,
         userEmail: email,
@@ -92,35 +96,27 @@ class AuthNotifier extends ChangeNotifier{
       switch(e.code){
         case "invalid-email":
           Utils.toastMessage('Please enter a valid email address');
-          // notifyListeners();
           break;
         case 'requires-recent-login':
           Utils.toastMessage('Please sign in again to continue');
-          // notifyListeners();
           break;
         case 'email-already-in-use':
           Utils.toastMessage('The account already exists for that email');
-          // notifyListeners();
           break;
         case 'weak-password':
           Utils.toastMessage('The password provided is too weak');
-          // notifyListeners();
           break;
         case 'operation-not-allowed':
           Utils.toastMessage('Firebase Authentication is not enabled');
-          // notifyListeners();
           break;
         case 'too-many-requests':
           Utils.toastMessage('Too many requests. Try again later');
-          // notifyListeners();
           break;
         case "network-request-failed":
           Utils.toastMessage('Please check your internet connection and try again');
-          // notifyListeners();
           break;
         default:
           Utils.toastMessage('An error occurred, please try again later');
-          // notifyListeners();
       }
     }
     return userCredential;
@@ -169,24 +165,23 @@ class AuthNotifier extends ChangeNotifier{
       return loginCredential;
     } on FirebaseAuthException catch (e) {
       setLoginLoading(false);
-      switch(e.code){
-        case "invalid-email":
-          Utils.toastMessage("Please enter a valid email");
-          break;
-        case 'user-not-found':
-          Utils.toastMessage("No user found with this email address");
-          break;
-        case 'wrong-password':
-          Utils.toastMessage("Please enter a valid password");
-          break;
-        case 'weak-password':
-          Utils.toastMessage("The password provided is too weak");
-          break;
-        case "network-request-failed":
-          Utils.toastMessage("Please check your internet connection");
-          break;
-        default:
-          Utils.toastMessage("An error occurred, please try again later");
+      log('Error code is ===> ${e.code}');
+      if(e.code == 'invalid-email'){
+        emailErrorText('Please enter a valid email');
+      }else if(e.code == 'wrong-password'){
+        passwordErrorTex('Please enter a valid password');
+      }else if(e.code == 'INVALID_LOGIN_CREDENTIALS'){
+        emailErrorText('Please enter valid credentials');
+      }else if (e.code == 'too-many-requests'){
+        emailErrorText('Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later');
+      } else if(e.code == 'user-not-found'){
+        emailErrorText('No user found with this email address');
+      }else if (e.code == 'weak-password'){
+        passwordErrorTex('The password provided is too weak');
+      }else if(e.code == 'network-request-failed'){
+        Utils.toastMessage("Please check your internet connection and try again");
+      }else {
+        emailErrorText('An error occurred, please try again');
       }
     } catch (e) {
       setLoginLoading(false);
@@ -249,8 +244,8 @@ class AuthNotifier extends ChangeNotifier{
     }
   }
 
-  void signOut() {
-    FirebaseApi.auth.signOut();
+  Future<void> signOut() async{
+   await FirebaseApi.auth.signOut();
     notifyListeners();
   }
 
