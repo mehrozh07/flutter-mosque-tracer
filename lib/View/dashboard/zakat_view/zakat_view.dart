@@ -4,15 +4,29 @@ import 'package:mosque_tracer/utils/text_style.dart';
 import 'package:mosque_tracer/widgets/custom_button.dart';
 import 'package:mosque_tracer/widgets/custom_field.dart';
 
-class ZakatView extends StatelessWidget {
-   ZakatView({super.key});
+enum ValueOfGoldSilver { GOLD, SILVER}
 
+class ZakatView extends StatefulWidget {
+   const ZakatView({super.key});
+
+  @override
+  State<ZakatView> createState() => _ZakatViewState();
+}
+
+class _ZakatViewState extends State<ZakatView> {
   final cashInHand = TextEditingController();
+
   final cashDeposited = TextEditingController();
+
   final loanC = TextEditingController();
+
   final investmentOthersC = TextEditingController();
+
   final goldC = TextEditingController();
+
   final silverC = TextEditingController();
+
+   ValueOfGoldSilver _valueOfGoldSilver = ValueOfGoldSilver.GOLD;
 
   @override
   Widget build(BuildContext context) {
@@ -59,21 +73,29 @@ class ZakatView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    RadioListTile(
+                    RadioListTile<ValueOfGoldSilver>(
                       contentPadding: EdgeInsets.zero,
                         visualDensity: const VisualDensity(horizontal: -4,vertical: -4),
-                        value: true,
-                        groupValue: true,
-                        onChanged: (v){},
-                      title: Text('Value of gold(approximately Rs.1,437,000)',style: InterStyle.w500f14Black),
+                        value: ValueOfGoldSilver.GOLD,
+                        groupValue: _valueOfGoldSilver,
+                        onChanged: ( v){
+                        setState(() {
+                          _valueOfGoldSilver = v!;
+                        });
+                        },
+                      title: Text('Value of gold(approximately Rs.1,346,947)',style: InterStyle.w500f14Black),
                     ),
                     RadioListTile(
                       contentPadding: EdgeInsets.zero,
                       visualDensity: const VisualDensity(horizontal: -4,vertical: -4),
-                      value: true,
-                      groupValue: true,
-                      onChanged: (v){},
-                      title: Text('Value of silver(approximately Rs.114,713)',style: InterStyle.w500f14Black),
+                      value: ValueOfGoldSilver.SILVER,
+                      groupValue: _valueOfGoldSilver,
+                      onChanged: ( v){
+                        setState(() {
+                          _valueOfGoldSilver = v!;
+                        });
+                      },
+                      title: Text('Value of silver(approximately Rs.1,29,570)',style: InterStyle.w500f14Black),
                     ),
                     SizedBox(height: size.height*0.005),
                     Text('Cash',style: InterStyle.w500f24Black),
@@ -193,7 +215,7 @@ class ZakatView extends StatelessWidget {
                           Expanded(
                             child: Column(
                               children: [
-                                Text('Valve of gold that you posses',
+                                Text('Value of gold that you posses',
                                     maxLines: 2,
                                     style: InterStyle.w500f14Black),
                                 SizedBox(height: size.height*0.02),
@@ -217,7 +239,7 @@ class ZakatView extends StatelessWidget {
                           Expanded(
                             child: Column(
                               children: [
-                                Text('Valve of silver that you posses',
+                                Text('Value of silver that you posses',
                                     maxLines: 2,
                                     style: InterStyle.w500f14Black),
                                 SizedBox(height: size.height*0.02),

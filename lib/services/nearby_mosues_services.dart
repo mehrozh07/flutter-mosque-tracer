@@ -11,7 +11,6 @@ class ApiService {
     final response = await http.get(
         Uri.parse('$baseUrl?location=$lat,$lng&radius=$radius&sensor=$sensor&types=mosque&key=$apiKey')
     );
-
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       if (data['status'] == "OK") {
