@@ -64,7 +64,12 @@ class _HomeViewState extends State<HomeView> {
                     onPressed: () async{
                      await authNotifier.signOut().then((value){
                        Navigator.popUntil(context, (route) => route.isFirst);
-                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=> LoginView()));
+                       PersistentNavBarNavigator.pushNewScreen(
+                         context,
+                         screen: LoginView(),
+                         withNavBar: false,
+                         pageTransitionAnimation: PageTransitionAnimation.cupertino,
+                       );
                      });
                     },
                     icon: const Icon(Icons.logout,color: Colors.white)),
