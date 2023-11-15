@@ -1,17 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:mosque_tracer/utils/error_message.dart';
 import 'package:mosque_tracer/utils/text_style.dart';
 import 'package:mosque_tracer/widgets/custom_button.dart';
 import 'package:mosque_tracer/widgets/custom_field.dart';
 
-class ZakatView3 extends StatelessWidget {
-  ZakatView3({super.key});
+class ZakatView3 extends StatefulWidget {
+   String taxesRentC, borowdC, loanC ,
+   investmentOthersC,
+   goldC,
+   stokTrades,
+   wadgesDueC,selectedValue;
+   String cashInHand,cashDeposited,cashLoan,cashInvestment,gold,silver;
+   ZakatView3({super.key, required this.taxesRentC, required this.borowdC, required this.loanC, required this.investmentOthersC, required this.goldC, required this.wadgesDueC, required this.cashInHand, required this.cashDeposited, required this.cashLoan, required this.cashInvestment, required this.gold, required this.silver, required this.selectedValue, required this.stokTrades});
 
-  final taxesRentC = TextEditingController();
-  final borowdC = TextEditingController();
-  final loanC = TextEditingController();
-  final investmentOthersC = TextEditingController();
-  final goldC = TextEditingController();
-  final wadgesDueC = TextEditingController();
+  @override
+  State<ZakatView3> createState() => _ZakatView3State();
+}
+
+class _ZakatView3State extends State<ZakatView3> {
+
+  int totalWorth = 0;
+
+  @override
+  void initState() {
+   setState(() {
+     totalWorth = (int.parse(widget.cashInHand)
+         +int.parse(widget.cashInvestment) + int.parse(widget.cashLoan)
+         + int.parse(widget.silver) + int.parse(widget.gold)
+         + int.parse(widget.investmentOthersC))-(int.parse(widget.borowdC)
+         +int.parse(widget.wadgesDueC)+int.parse(widget.taxesRentC));
+         // widget.cashDeposited+widget.cashInvestment+
+         // widget.cashLoan+widget.silver+widget.gold+widget.investmentOthersC
+         // -int.parse(widget.borowdC+widget.wadgesDueC+widget.taxesRentC));
+   });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,24 +84,34 @@ class ZakatView3 extends StatelessWidget {
                   Text('Total Net Worth',
                       textAlign: TextAlign.start,
                       style: InterStyle.w500f24Black),
-                  Text('Rs. 160,000',style: InterStyle.w500f24Black),
+                  Text('Rs. $totalWorth',style: InterStyle.w500f24Black),
                   SizedBox(height: size.height*0.06),
                   Text('Zakat Payable',
                       textAlign: TextAlign.start,
                       style: InterStyle.w500f24Black),
-                  Text('Rs. 10,000',style: InterStyle.w500f24Black),
+                  (totalWorth >= int.parse(widget.selectedValue))?
+                  Text('Your are eligible to pay zakat $totalWorth',style: InterStyle.w500f24Black):
+                  Text('You are not eligible to pay zakaat',style: InterStyle.w500f24Black),
                   SizedBox(height: size.height*0.1),
                   Row(
                     children: [
                       Expanded(child: CustomButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          if(totalWorth >= int.parse(widget.selectedValue)){
+                            Utils.toastMessage('You are eligible for zakaat');
+                          }
+                        },
                         title: 'Give your Zakat',
                       )),
                       SizedBox(width: size.width*0.03),
                       Expanded(child: CustomButton(
-                        onPressed: (){},
+                        onPressed: (){
+                          totalWorth = 0;
+                          setState(() {});
+                        },
                         title: 'Reset',
                       )),
+
                     ],
                   )
                 ],
